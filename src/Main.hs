@@ -12,7 +12,7 @@ main :: IO ()
 main =
   runSpock 3000 $ spockT id $ do
 
-    get "/" $ redirect "default"
+    get "/" $ redirect "3,Fizz;5,Buzz"
 
     get ("/" <//> var) $ \ftype -> do
       case breakTextByDot ftype of
