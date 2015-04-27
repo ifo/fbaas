@@ -16,6 +16,6 @@ main =
 
     get ("/" <//> var) $ \ftype -> do
       case breakTextByDot ftype of
-        (_, ".json") -> json $ toJSON
-          $ "{\"answer\": \"" <> FB.fizzBuzzer (1, 100) <> "\"}"
-        (_, _) -> text $ FB.fizzBuzzer (1, 100)
+        (t, ".json") -> json $ toJSON
+          $ "{\"answer\": \"" <> FB.fizzerBuzzer t (1, 100) <> "\"}"
+        (t, _) -> text $ FB.fizzerBuzzer t (1, 100)
