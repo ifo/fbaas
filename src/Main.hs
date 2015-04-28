@@ -5,12 +5,17 @@ module Main where
 import Web.Spock.Safe
 import Data.Aeson.Types (toJSON)
 import Data.Monoid ((<>))
+import Data.Maybe (fromMaybe)
 import Helpers (breakTextByDot)
+import System.Environment (lookupEnv)
 import qualified FizzBuzz as FB
 
 main :: IO ()
-main =
-  runSpock 3000 $ spockT id $ do
+main = do
+  maybePort <- lookupEnv "PORT"
+  let port = read $ fromMaybe "3000" maybePort
+
+  runSpock port $ spockT id $ do
 
     get "/" $ redirect "3,Fizz;5,Buzz"
 
