@@ -3,7 +3,7 @@
 module Main where
 
 import Web.Spock.Safe
-import Data.Aeson.Types (toJSON)
+import Data.Aeson (object, (.=))
 import Data.Monoid ((<>))
 import Data.Maybe (fromMaybe)
 import Helpers (breakTextByDot)
@@ -21,6 +21,5 @@ main = do
 
     get ("/" <//> var) $ \ftype -> do
       case breakTextByDot ftype of
-        (t, ".json") -> json $ toJSON
-          $ "{\"answer\": \"" <> FB.fizzerBuzzer t (1, 100) <> "\"}"
+        (t, ".json") -> json $ object ["answer" .= FB.fizzerBuzzer t (1, 100)]
         (t, _) -> text $ FB.fizzerBuzzer t (1, 100)
